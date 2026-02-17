@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YT Growth Studio | Organic Planner</title>
+    <meta
+      name="description"
+      content="Lập kế hoạch tăng trưởng YouTube tự nhiên với roadmap 30 ngày, KPI và checklist tối ưu nội dung."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <main class="container">
+      <header class="hero card">
+        <span class="badge">YT Growth Studio</span>
+        <h1>Tăng view YouTube tự nhiên theo cách chuyên nghiệp</h1>
+        <p>
+          Không bot, không spam. Chỉ tập trung vào chiến lược nội dung, lịch đăng, tối ưu CTR và tăng
+          thời gian xem thực.
+        </p>
+      </header>
+
+      <section class="card">
+        <h2>Thiết lập kế hoạch</h2>
+        <form id="growth-form" class="grid">
+          <label>
+            Tên kênh
+            <input required id="channelName" placeholder="Ví dụ: Money Lab VN" />
+          </label>
+
+          <label class="full">
+            Link kênh/video YouTube
+            <div class="input-inline">
+              <input id="channelUrl" type="url" placeholder="https://youtube.com/@yourchannel" />
+              <button type="button" id="analyze-link-btn" class="secondary">Tự phân tích link</button>
+            </div>
+            <small id="analysis-status" class="status">Dán link YouTube để hệ thống tự gợi ý.</small>
+          </label>
+
+          <label>
+            Chủ đề kênh
+            <input required id="niche" placeholder="Ví dụ: Giáo dục tài chính" />
+          </label>
+
+          <label>
+            Tệp khán giả mục tiêu
+            <input required id="audience" placeholder="Ví dụ: Người đi làm 22-35 tuổi" />
+          </label>
+
+          <label>
+            Video dài / tuần
+            <input required type="number" id="frequency" min="1" max="14" value="3" />
+          </label>
+
+          <label>
+            Subscriber hiện tại
+            <input required type="number" id="subscribers" min="0" value="1000" />
+          </label>
+
+          <label>
+            View trung bình / video
+            <input required type="number" id="avgViews" min="0" value="500" />
+          </label>
+
+          <label>
+            Thời lượng trung bình (phút)
+            <input required type="number" id="duration" min="1" max="180" value="8" />
+          </label>
+
+          <label>
+            Mục tiêu view 30 ngày
+            <input required type="number" id="targetViews" min="100" value="20000" />
+          </label>
+
+          <label class="full">
+            Từ khóa trọng tâm (phân tách dấu phẩy)
+            <input required id="keywords" placeholder="youtube seo, thumbnail, retention" />
+          </label>
+
+          <div class="actions full">
+            <button type="submit">Phân tích & tạo roadmap</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="result" class="hidden stack">
+        <div class="kpis">
+          <article class="card kpi">
+            <p>Growth score</p>
+            <h3 id="growth-score">0</h3>
+            <small id="growth-level">-</small>
+          </article>
+          <article class="card kpi">
+            <p>Sản lượng 30 ngày</p>
+            <h3 id="output-mix">0</h3>
+            <small>Video dài + Shorts</small>
+          </article>
+          <article class="card kpi">
+            <p>Mục tiêu chính</p>
+            <h3 id="primary-goal">CTR + Watch Time</h3>
+            <small>Tối ưu tăng trưởng bền vững</small>
+          </article>
+        </div>
+
+        <section class="card">
+          <h2>Tổng quan chiến lược</h2>
+          <div id="summary" class="summary"></div>
+        </section>
+
+        <section class="card">
+          <h2>Roadmap 4 tuần</h2>
+          <ol id="roadmap" class="roadmap"></ol>
+        </section>
+
+        <section class="card two-cols">
+          <div>
+            <h2>Checklist thực thi</h2>
+            <ul id="checklist"></ul>
+          </div>
+          <div>
+            <h2>Tiêu đề A/B test</h2>
+            <ul id="title-ideas"></ul>
+            <h3>Hashtag đề xuất</h3>
+            <p id="hashtags" class="hashtags"></p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
