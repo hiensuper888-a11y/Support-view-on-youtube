@@ -38,9 +38,13 @@
             <input required id="channelName" placeholder="Ví dụ: Money Lab VN" />
           </label>
 
-          <label>
-            Link kênh YouTube
-            <input id="channelUrl" type="url" placeholder="https://youtube.com/@yourchannel" />
+          <label class="full">
+            Link kênh/video YouTube
+            <div class="input-inline">
+              <input id="channelUrl" type="url" placeholder="https://youtube.com/@yourchannel" />
+              <button type="button" id="analyze-link-btn" class="secondary">Tự phân tích link</button>
+            </div>
+            <small id="analysis-status" class="status">Dán link YouTube để hệ thống tự gợi ý.</small>
           </label>
 
           <label>

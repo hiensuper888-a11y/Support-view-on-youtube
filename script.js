@@ -1,5 +1,7 @@
 const form = document.getElementById('growth-form');
 const result = document.getElementById('result');
+const analyzeLinkBtn = document.getElementById('analyze-link-btn');
+const analysisStatus = document.getElementById('analysis-status');
 
 const summary = document.getElementById('summary');
 const checklist = document.getElementById('checklist');
@@ -12,12 +14,82 @@ const growthLevel = document.getElementById('growth-level');
 const outputMix = document.getElementById('output-mix');
 const primaryGoal = document.getElementById('primary-goal');
 
+const suggestionByKeyword = [
+  { match: ['finance', 'tiền', 'đầu tư', 'chứng khoán'], niche: 'Tài chính cá nhân', audience: 'Người đi làm 22-35 tuổi', keywords: ['tài chính cá nhân', 'quản lý chi tiêu', 'đầu tư'] },
+  { match: ['game', 'gaming', 'esport'], niche: 'Gaming', audience: 'Nam/Nữ 16-28 tuổi yêu thích game', keywords: ['gaming tips', 'meta game', 'highlight'] },
+  { match: ['study', 'học', 'english', 'ielts'], niche: 'Học tập & phát triển bản thân', audience: 'Học sinh, sinh viên 15-24 tuổi', keywords: ['phương pháp học', 'ielts', 'kỹ năng học tập'] },
+  { match: ['cook', 'food', 'nấu', 'ẩm thực'], niche: 'Ẩm thực', audience: 'Nội trợ và người yêu nấu ăn 20-45 tuổi', keywords: ['món ngon', 'công thức nấu ăn', 'meal prep'] },
+  { match: ['tech', 'công nghệ', 'ai', 'review'], niche: 'Công nghệ', audience: 'Người quan tâm thiết bị/công nghệ 18-34 tuổi', keywords: ['review công nghệ', 'mẹo công nghệ', 'ai tools'] },
+];
+
 const getLevel = (score) => {
   if (score >= 85) return 'Xuất sắc';
   if (score >= 70) return 'Tốt';
   if (score >= 55) return 'Khá';
   return 'Cần tối ưu thêm';
 };
+
+const detectSuggestion = (text) => {
+  const normalized = text.toLowerCase();
+  const found = suggestionByKeyword.find((item) => item.match.some((k) => normalized.includes(k)));
+  return found || {
+    niche: 'Giáo dục / chia sẻ kiến thức',
+    audience: 'Người xem 18-34 tuổi quan tâm học hỏi',
+    keywords: ['youtube seo', 'thumbnail', 'watch time'],
+  };
+};
+
+const fillSuggestedFields = ({ title, authorName }) => {
+  const channelNameInput = document.getElementById('channelName');
+  const nicheInput = document.getElementById('niche');
+  const audienceInput = document.getElementById('audience');
+  const keywordsInput = document.getElementById('keywords');
+
+  const signalText = `${title || ''} ${authorName || ''}`;
+  const suggest = detectSuggestion(signalText);
+
+  if (!channelNameInput.value.trim() && authorName) channelNameInput.value = authorName;
+  if (!nicheInput.value.trim()) nicheInput.value = suggest.niche;
+  if (!audienceInput.value.trim()) audienceInput.value = suggest.audience;
+  if (!keywordsInput.value.trim()) keywordsInput.value = suggest.keywords.join(', ');
+};
+
+analyzeLinkBtn.addEventListener('click', async () => {
+  const channelUrl = document.getElementById('channelUrl').value.trim();
+
+  if (!channelUrl) {
+    analysisStatus.textContent = 'Vui lòng nhập link YouTube trước khi phân tích.';
+    analysisStatus.className = 'status error';
+    return;
+  }
+
+  try {
+    analysisStatus.textContent = 'Đang phân tích link...';
+    analysisStatus.className = 'status loading';
+
+    const oembedEndpoint = `https://www.youtube.com/oembed?url=${encodeURIComponent(channelUrl)}&format=json`;
+    const response = await fetch(oembedEndpoint);
+
+    if (!response.ok) {
+      throw new Error('Không đọc được thông tin công khai từ link này.');
+    }
+
+    const payload = await response.json();
+    fillSuggestedFields({
+      title: payload.title,
+      authorName: payload.author_name,
+    });
+
+    analysisStatus.textContent = `Đã phân tích xong: "${payload.title}" từ kênh ${payload.author_name}. Bạn có thể chỉnh lại trước khi tạo roadmap.`;
+    analysisStatus.className = 'status success';
+  } catch (error) {
+    const fallback = detectSuggestion(channelUrl);
+    fillSuggestedFields({ title: channelUrl, authorName: '' });
+
+    analysisStatus.textContent = `Không thể phân tích tự động hoàn toàn (${error.message}). Đã gợi ý nhanh: ${fallback.niche}.`;
+    analysisStatus.className = 'status error';
+  }
+});
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();

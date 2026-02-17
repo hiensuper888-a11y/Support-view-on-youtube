@@ -8,6 +8,7 @@
   --accent: #5b8cff;
   --accent-2: #39d0ff;
   --success: #31d0aa;
+  --danger: #ff8fa3;
   --shadow: 0 16px 36px rgba(2, 6, 17, 0.45);
 }
 
@@ -107,6 +108,7 @@ label {
 }
 
 input {
+  width: 100%;
   border: 1px solid rgba(145, 166, 216, 0.35);
   background: rgba(6, 11, 22, 0.45);
   color: var(--text);
@@ -117,6 +119,29 @@ input {
 
 input::placeholder {
   color: #7691c8;
+}
+
+.input-inline {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.6rem;
+}
+
+.status {
+  color: var(--muted);
+  min-height: 1.2rem;
+}
+
+.status.success {
+  color: var(--success);
+}
+
+.status.error {
+  color: var(--danger);
+}
+
+.status.loading {
+  color: #ffd88a;
 }
 
 .full {
@@ -136,6 +161,12 @@ button {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: #081226;
   cursor: pointer;
+}
+
+.secondary {
+  background: rgba(88, 123, 214, 0.25);
+  color: #dbe8ff;
+  border: 1px solid rgba(170, 193, 248, 0.35);
 }
 
 .stack {
@@ -208,7 +239,8 @@ li {
 }
 
 @media (max-width: 860px) {
-  .two-cols {
+  .two-cols,
+  .input-inline {
     grid-template-columns: 1fr;
   }
 }

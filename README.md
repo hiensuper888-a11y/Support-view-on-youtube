@@ -4,6 +4,7 @@
 
 ## Tính năng
 - Nhập thông tin kênh đầy đủ: tên kênh, link kênh, subscribers, view trung bình, mục tiêu view 30 ngày.
+- Nút **Tự phân tích link**: lấy metadata công khai từ YouTube link (oEmbed) để tự gợi ý tên kênh/chủ đề/audience/từ khóa.
 - Chấm điểm tăng trưởng (Growth Score) + mức độ hiện tại.
 - Kế hoạch 30 ngày theo roadmap 4 tuần.
 - Checklist triển khai + tiêu đề A/B test + hashtag gợi ý.
